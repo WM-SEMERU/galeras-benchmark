@@ -17,6 +17,9 @@
 	"remoteEnv": {
         //"MY_PROJECT_NAME": "The-container-name-here" //NOTE: make this name the same as the folder containing the repo
         "MY_PROJECT_NAME": "chat-gpt-failures"
-    }
+    },
+	"forwardPorts": ["3444:8888", "4040:4040"],
+	"runArgs": ["-e", "GRANT_SUDO=yes","--name", "${localWorkspaceFolderBasename}-danielrc", "--add-host", "host.docker.internal:host-gateway"]	
+	//"initializeCommand": "docker build -f .devcontainer/Dockerfile --network host -t test:version ." #IMAGE TAG
 }
 	

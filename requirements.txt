@@ -1,3 +1,9 @@
 openai
 python-dotenv
 tree-sitter
+tokenizers
+pandas
+matplotlib
+seaborn
+scipy
+pymysql

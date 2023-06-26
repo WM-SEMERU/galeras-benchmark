@@ -1,8 +1,8 @@
 # Copyright (c) Microsoft Corporation. 
 # Licensed under the MIT license.
 
-from parser import DFG_python,DFG_java,DFG_ruby,DFG_go,DFG_php,DFG_javascript,DFG_csharp
-from parser import (remove_comments_and_docstrings,
+from parser.__init___ import DFG_python,DFG_java,DFG_ruby,DFG_go,DFG_php,DFG_javascript,DFG_csharp
+from parser.__init___ import (remove_comments_and_docstrings,
                    tree_to_token_index,
                    index_to_code_token,
                    tree_to_variable_index)
@@ -23,7 +23,7 @@ def calc_dataflow_match(references, candidate, lang):
     return corpus_dataflow_match([references], [candidate], lang)
 
 def corpus_dataflow_match(references, candidates, lang):   
-    LANGUAGE = Language('parser/my-languages.so', lang)
+    LANGUAGE = Language('src/CodeBLEU/parser/tree-sitter-languages.so', lang)
     parser = Parser()
     parser.set_language(LANGUAGE)
     parser = [parser,dfg_function[lang]]
