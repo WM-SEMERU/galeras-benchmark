@@ -39,20 +39,22 @@ def ask_chat_gpt(prompt):
         
 def code_completion_random_cut():
     answers = list()
-    json_path = '/workspaces/chat-gpt-failures/datasets/galeras_se_tasks_dataset/randomsplit.json'
+    json_path = '/workspaces/chat-gpt-failures/datasets/galeras_se_tasks_dataset/code_completion_docstring_dataset_3k.json'
     with open(json_path) as json_file:
         json_data = json.load(json_file)
         
         for data in json_data:
-            prompt = "'Complete the following a {} code, return only code and complete method {}'".format('Python', data['random_split'])
+            #prompt = "'Complete the following a {} code, return only code and complete method {}'".format('Python', data['random_split'])
+            #prompt = "Write a {} method that starts with ```{}``` , I need to complete this function. Remove comments, summary and descriptions.".format('Python', data['random_split'])
+            prompt = "Complete the following python method: ```{}```".format(data['random_cut'])
             answer, messages= ask_chat_gpt(prompt)
-            data['predicted_contorl'] = answer
+            data['predicted_P2'] = answer
             answers.append(data)
        
     return answers
     
 
-def codeserchnet_summarizatio_code():
+def codeserchnet_summarization_code():
     answers = []
     with open('datasets/code_xglue/text-to-code/codesearchnet/python/valid.jsonl', 'r') as json_file:
         json_list = list(json_file)
@@ -68,9 +70,8 @@ def save(name, data):
         
 def main():
     result = code_completion_random_cut()
-    save("random_cut",result)
+    save("code_completion_docstring_dataset_3k_conrol",result)
 
 if __name__ == "__main__":
     sys.exit(main())
     
-    #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
