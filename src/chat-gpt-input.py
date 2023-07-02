@@ -87,7 +87,7 @@ def code_completion_random_cut():
             p_template = "Remeber you have a Python function named {}, the function starts with the following code {}. The description for the function is: {} "
             p_text = p_template.format(data['fun_name'], data['random_cut'],data['documentation']["docstring"].strip())
             prompt2 = "remove comments; remove summary; remove description; Return only the code"
-            answer, messages= ask_chat_gpt_twice(p_text,prompt2)
+            answer, messages= ask_chat_gpt_twice(p_text,prompt2) #Change this for simple call
             p_text += prompt2 
             prompt['template'] = ''.join([p_template,prompt2])
             prompt['p_n_words'] = len(p_text.split())
@@ -102,6 +102,7 @@ def code_completion_random_cut():
             predicted['vocab_size'] = len(set(answer.split()))
             data['T2'] = {'prompt':prompt, 'predicted': predicted}
             #data['control']['predicted'] = predicted
+            #data['T1']['predicted'] = predicted
             answers.append(data)
        
     return answers
