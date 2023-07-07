@@ -84,7 +84,7 @@ def code_completion_random_cut():
             #prompt = "'Complete the following a {} code, return only code and complete method {}'".format('Python', data['random_split'])
             #prompt = "Write a {} method that starts with ```{}``` , I need to complete this function. Remove comments, summary and descriptions.".format('Python', data['random_split'])
             #p_template = "Complete the following python method: ```{}```"
-            p_template = "Remeber you have a Python function named {}, the function starts with the following code {}. The description for the function is: {} "
+            p_template = "Remember you have a Python function named {}, the function starts with the following code {}. The description for the function is: {} "
             p_text = p_template.format(data['fun_name'], data['random_cut'],data['documentation']["docstring"].strip())
             prompt2 = "remove comments; remove summary; remove description; Return only the code"
             answer, messages= ask_chat_gpt_twice(p_text,prompt2) #Change this for simple call
