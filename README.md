@@ -1,6 +1,6 @@
-# Chat-GPT Failures
+# Benchmarking Causal Analysis for Interpreting LLMs for Source Code
 
-Chat-GPT failures is systematic analysis of Chat GPT for SE failures. It does this by ustilizing the Galeras raw dataset for various different SE tasks and analyizing the results. This highlights the use cases of Galeras and its analysis approach.
+This project strives to create a benchmark to create causal analysis for LLM SE tasks. It does this by ustilizing the Galeras raw dataset for various different SE tasks and analyizing the results. This highlights the use cases of Galeras and its analysis approach.
 
 ## Use Cases
 
