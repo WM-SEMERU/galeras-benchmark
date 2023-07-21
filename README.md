@@ -83,14 +83,58 @@ The end goal of galeras is for the research community to be able to understand t
 
 *T* is the input configuration prompts in our case study. *Y* is the model predicition perforamnce, which can be measured in several different ways. (*e.g.* BLUE CodeBLUE Levenshtein). *Z* is variables affecting both *T* and *Y*. Finally, *effect modifiers* are features directly effecting the outcome *Y*. 
 
-
-
 The benchmark provides a curated dataset with uncontaminated code snippets, accompanied by various confounding features for each data point.  By examining the causal relationship between these confounding factors and the model's output, researchers can gain valuable insights into the factors that influence code generation in LLM.
+
+
 
 ## Evaluation
 
+### Methodology
+The evaluation methodology of our case study is divided into three parts. The first part focuses on the exploritory analysis of the galeras testbeds. We employed the BPE Tokenizer to normlize the vocabulary of each treatment T and outcome Y. 
+
+![Token Taxonomy](./figures/results/Descriptive-Analysis1.jpg)
+
+Tokens from each category were classified in one of ten ways:
+- Blocks
+- Exceptions
+- OOP
+- Tests
+- Declaration
+- Conditional
+- Loops
+- Operators
+- Casting
+- Extra Tokens
+
+Since our analysis was only focused on Python, keywords relating to data types (i.e. int, str) were classified as *casting* tokens. 
+
+The second part of our analysis canonically evalutes ChatGPT using our testbed *WithDocString*. CodeBLEU was computed with a default parameter of 0.25, and BLUE was computed with a 4-gram parameter. For local evaluation, we computed the Levenshtein Distance and similarity. 
+
+The third part estimates the causal effect of prompt engineering methods and ChatGPT performance. We use galeras to compare the performance of two different treatments. The first treatment $T_1$ is a single prompt that contains a command (*e.g. Complete the following Python code, return only code and complete method: '{partial code}'*) followed by the actual code to be completed. The second treatment $T_2$ comprises two prompts. The first one is a context prompt that entails both the *docstring* and the partial code. The second one is a *processing* prompt that contains sentences asking for removing comments and omptimizing code. We used the previous treatments against a *control* group. The control is a *task* prompt that encompasses an actino word or verb followed by the partial code. 
+
+In order to evaluate whether treatments $T$ are effecting ChatGPT output $Y$, we controlled for confounding features $Z$. We assumed that our cofounders are:
+- prompt_size
+- n_whitespaces
+- token_count
+- nloc
+
+The potential outcomes $Y_2, Y_1, Y_0$ are observed using treatments $T_1, T_2, control$. Next, using the SCM defined above, we approimate the *Average Treatment Effect* $p(Y| do(T))$. 
+
 The benchmark underscores the significance of using clean datasets and prioritizes the provision of uncontaminated data for evaluation purposes. ML researchers have the capability to leverage this in generating fresh datasets tailored to specific software engineering tasks. This enables them to evaluate the performance of LLM on pertinent and carefully curated data.
 
+### Results
+We observed no significant difference in the counting of tokens among potential outcomes. For instance, *control* and $T_2$ on declarations with a difference of ~550 tokens and loops with a difference of ~600 tokens are relatively small. However, $T_1$ outcome exhibited high difference and excessive use of OOP, declarations and loops with a difference around 2.6k, 2k and 5k tokens respectively. We detected that the two prompt engineering methods were generating a similar amount of tokens (i.e., green and red distributions) compared to the control and ground truth. This suggests that sophisticated prompts tend to generate repetitive tokens. With respect to the Levenshtein similarity distance between the ChatGPT outputs, generated with both prompt engineering methods and the control, and the ground truth. We can observe from the proportion curve that T1 similarity performs the worst compared to the control and T2.
+
+The purpose of our initial exploritory analysis was to expose and understand the testbeds feature distribution grouped by prompt engineering methods. There was high variability in n_whitespaces and token_count which implies the method sizes are not homogenous across the testbed. 
+
+While the descriptive analysis shows high variability across all features, our testbeds are a representative sample of open repositories. For example,  the average value of code complexity is 3.25 suggesting a reasonable amount of loops, conditionals and operators in our testbed. 
+
+As for the causal analysis, we found that ChatGPT performance is primarily influence by: number of white spaces, lines of code, tokens in the outcome and tokens in the prompt with a maximum correlation of 0.80 with respect to the Levenshtein distance.  This suggests that after controlling for con-
+founders, the *Average Treatment Effect* (ATE) the prompt engineering $method_1$, represented by $T_1$, has a negative causal effect $p1(Y |do(T )) = E[Y1 − Y0] ≈ −5.1$% compared to a positive causal effect $p2(Y |do(T )) = E[Y2 − Y0] ≈ 3.3$% of $method_2$, represented by $T_2$. 
+
+This indicated that $method_1$ is decreasing performance across the *WithDocString* testbed, while $method_2$ is actually enhancing ChatGPT predictive performace. This is consistent with our results that $T_2$ outperforms $T_1$. After controlling for the confounding effect of the code features such as the prompt size and token counts, we can claim that the reason why $T_2$ is performing better than $T_1$ is purely due to the information contained in the prompt.
+
+![Results](./figures/results/tab3.png)
 ## Conclusion
 
  By focusing on causal queries and considering a wide range of confounding features, Galeras enables ML researchers in SE to evaluate and interpret the code generation capabilities of LLMs. The benchmark dataset and testbeds facilitate transparent and interpretable evaluations, addressing the limitations of relying solely on accuracy metrics.
