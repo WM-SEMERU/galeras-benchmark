@@ -13,7 +13,7 @@ start_date = datetime(2022, 1, 1, 0, 0, 0)
 end_date = datetime(2023, 1, 1, 0, 0, 0)
 
 # Then query for Python repositories sorted by stars and exclude forks
-query = 'language:Python fork:false pushed:>2021-12-31 stars:>1000 org:facebook'
+query = 'language:Java fork:false pushed:>2021-12-31 stars:>1000'
 #'language:Python fork:false size:>=30000 pushed:>2021-12-31 stars:>2000'
 
 repos = list_all_repos.get_all_repos(query, 200)
