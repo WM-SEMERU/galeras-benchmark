@@ -33,7 +33,7 @@ def calculate(lang,params,file):
         data = json.load(f)
     # preprocess inputs
     pre_references = [[x["code"].strip()for x in data]]
-    hypothesis = [x["predicted_P2"].strip() for x in data]
+    hypothesis = [x["T2"]["predicted"]["prediction"].strip() for x in data]
 
     for i in range(len(pre_references)):
         assert len(hypothesis) == len(pre_references[i])
@@ -83,7 +83,7 @@ def calculate(lang,params,file):
 def main():
     params='0.25,0.25,0.25,0.25'
     lang="python"
-    file="/workspaces/chat-gpt-failures/datasets/galeras_prompting/random_cut_P2.json"
+    file="/workspaces/chat-gpt-failures/datasets/galeras_prompting/code_completion_docstring_3k_T2_deduped_tuned.json"
     calculate(lang,params,file)
     
 if __name__ == "__main__":
