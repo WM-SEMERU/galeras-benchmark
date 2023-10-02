@@ -72,6 +72,8 @@ The resultant five datasets were deduplicated based on the Jaccard similarity of
 
 This table shows summary statistics about the aformentioned data subsets.
 
+![Testbeds](https://huggingface.co/semeru)
+
 ## Analysis Approach
 
 Galeras employs a causal analysis methodology to interpret the code generation process of LLMs. It utilizes a combination of control and two prompt treatments to configure the input for the model. The analysis primarily focuses on identifying the causal impact of confounders, which encompass the input code and text description, on both the treatment input prompt and the resulting generated code output.
