@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/python-3-miniconda
 {
-	"name": "Chat-GPT Failures 1.0",
+	"name": "Galeras Benchmark 1.0",
 	"build": { 
 		"context": "..",
 		"dockerfile": "Dockerfile",
@@ -11,12 +11,12 @@
 	},
 	
 	"mounts": [
-        "source=/nfs/semeru/semeru_datasets,target=/workspaces/chat-gpt-failures/datasets,type=bind,consistency=cached",
-		"source=/nfs/semeru/data/dvc,target=/tf/dvc,type=bind,consistency=cached"
+        "source=/nfs/semeru/semeru_datasets,target=/workspaces/galeras-benchmark/datasets,type=bind,consistency=cached",
+		//"source=/nfs/semeru/data/dvc,target=/tf/dvc,type=bind,consistency=cached"
 	],	
 	"remoteEnv": {
         //"MY_PROJECT_NAME": "The-container-name-here" //NOTE: make this name the same as the folder containing the repo
-        "MY_PROJECT_NAME": "chat-gpt-failures"
+        "MY_PROJECT_NAME": "galeras-benchmark"
     },
 	"forwardPorts": ["3444:8888", "4040:4040"],
 	"runArgs": ["-e", "GRANT_SUDO=yes","--name", "${localWorkspaceFolderBasename}-danielrc", "--add-host", "host.docker.internal:host-gateway"]	
