@@ -1,0 +1,21 @@
+digraph G {w_token_counts -> w_nloc;
+w_token_counts -> w_ast_levels;
+w_token_counts -> w_n_whitespaces;
+w_token_counts -> w_complexity;
+w_token_counts -> w_nloc;
+w_token_counts -> w_n_ast_nodes;
+w_ast_levels -> w_complexity;
+w_n_whitespaces -> w_n_ast_nodes;
+w_ast_levels -> i_binary_treatment;
+w_n_whitespaces -> i_binary_treatment;
+w_complexity -> i_binary_treatment;
+w_nloc -> i_binary_treatment;
+w_n_ast_nodes -> i_binary_treatment;
+i_vocab_size -> i_binary_treatment;
+i_n_words -> i_binary_treatment;
+i_n_whitespaces -> i_binary_treatment;
+i_binary_treatment -> y_lev;
+e_n_words -> y_lev;
+e_n_whitespaces -> y_lev;
+e_binary_treatment -> y_lev;
+}
